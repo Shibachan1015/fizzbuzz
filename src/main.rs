@@ -1,19 +1,49 @@
 
+fn fizz_buzz8() {
+    let fz = |x: i32| {
+        match (x % 3, x % 5) {
+            (0, 0) => format!("FizzBuzz"),
+            (0, _) => format!("Fizz"),
+            (_, 0) => format!("Buzz"),
+                _  => x.to_string(),
+        }
+    };
+
+    (1 ..= 100).map(fz).for_each(|x| println!("{}", x));
+}
 
 fn main() {
-    fn test_print(msg: String) -> String {
+    fizz_buzz8();
+}
+
+
+/*   //所有権の話２ &をつけて参照の機能を利用する
+fn main() {
+    fn test_print(msg: &String) -> &String {
         println!("{} in test_print", msg);
-        msg
+        &msg
     }
 
     let s1 = "Rust Life".to_string();
 
-    let s2 = test_print(s1);
+    let s2 = test_print(&s1);
 
     println!("{} after test_print /s2", s2);
-    //println!("{} after test_print /s1", s1);
+    println!("{} after test_print /s1", s1); // コンパイルエラー：所有権は`s1`にはない。←　＆をつければコンパイル可 
 }
+*/
 
+/* 所有権の話１ 
+fn main() {
+    let s1 = "Rust Lif".to_string();
+    println!("{}", s1); //OK
+
+    let s2 = s1; // ムーブセマンティクス：所有権が`s1`から`s2`に移動している
+
+    println!("{}", s2); // OK
+    println!("{}", s1); // コンパイルエラー：所有権は`s2`に移動しているので`s1`にアクセス不可 
+}
+*/
 
 /*
 fn fizz_buzz7() {
